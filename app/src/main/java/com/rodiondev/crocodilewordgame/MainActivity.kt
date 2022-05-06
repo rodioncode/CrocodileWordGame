@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.rodiondev.crocodilewordgame.ui.screens.ApplicationScreen
 import com.rodiondev.crocodilewordgame.ui.theme.CrocodileWordGameTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,18 +24,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CrocodileWordGameTheme {
-                
+                ApplicationScreen()
             }
         }
     }
-}
-@Composable
-fun navigation(): NavController{
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "splash") {
-        composable("splash") {  }
-        composable("login") {  }
-        /*...*/
-    }
-    return navController
 }

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Crocodile word game</string>
+    <string name="sign_in_title">Login</string>
+    <string name="sign_up_title">Sign Up</string>
+    <string name="forgot_title">Forgot password?</string>
+    <string name="sign_in_subtitle">Don\'t have an account? Sign up!</string>
+    <string name="sign_up_subtitle">Already have an account? Sign In!</string>
+    <string name="forgot_subtitle">Remembered password? Lucky you! Sign In</string>
+    <string name="email_label">Email</string>
+    <string name="hide_password">hide password</string>
+    <string name="show_password">show password</string>
+    <string name="password_label">Password</string>
+    <string name="sign_in_button">Sign In</string>
 </resources>
