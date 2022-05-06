@@ -12,6 +12,7 @@ Project for stack exploring
 - Flow
 - Retrofit for https://www.wordnik.com/ API
 - Hilt for DI
+- Room
 ----------------------------
 Future plan:
 - Animation
