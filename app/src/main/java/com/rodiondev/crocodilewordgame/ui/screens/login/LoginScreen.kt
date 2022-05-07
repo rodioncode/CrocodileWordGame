@@ -20,7 +20,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.rodiondev.crocodilewordgame.R
+import com.rodiondev.crocodilewordgame.navigation.NavigationTree
 import com.rodiondev.crocodilewordgame.ui.components.Email
 import com.rodiondev.crocodilewordgame.ui.components.Password
 import com.rodiondev.crocodilewordgame.ui.components.TextFieldState
@@ -29,6 +31,7 @@ import com.rodiondev.crocodilewordgame.ui.screens.login.models.LoginViewSubState
 
 @Composable
 fun LoginScreen(
+    navController: NavController,
     loginViewModel: LoginViewModel
 ) {
     val viewState = loginViewModel.viewState.collectAsState(LoginViewState())
@@ -81,7 +84,7 @@ fun LoginScreen(
 
             Button(
                 onClick = {
-
+                          navController.navigate(NavigationTree.Menu.name)
                 },
             ){
                 Text(text = stringResource(id = R.string.sign_in_button),)
