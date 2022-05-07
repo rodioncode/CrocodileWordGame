@@ -1,4 +1,4 @@
-package com.rodiondev.crocodilewordgame.data.request.randomWord
+package com.rodiondev.crocodilewordgame.network.randomWord
 
 import retrofit2.Response
 import retrofit2.http.GET

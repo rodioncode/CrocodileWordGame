@@ -1,8 +1,8 @@
-package com.rodiondev.crocodilewordgame
+package com.rodiondev.crocodilewordgame.network
 
-import android.util.Config
-import com.rodiondev.crocodilewordgame.data.request.randomWord.RandomWordApi
-import com.rodiondev.crocodilewordgame.data.request.randomWord.RandomWordRemoteData
+import com.rodiondev.crocodilewordgame.BuildConfig
+import com.rodiondev.crocodilewordgame.network.randomWord.RandomWordApi
+import com.rodiondev.crocodilewordgame.network.randomWord.RandomWordRemoteData
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val baseUrl = Config.BASE_URL
+    private const val baseUrl = BuildConfig.BASE_URL
 
     @Provides
     fun provideHTTPLoggingInterceptor(): HttpLoggingInterceptor {
@@ -50,5 +50,6 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRandomWordRemoteData(randomWordApi: RandomWordApi) : RandomWordRemoteData = RandomWordRemoteData(randomWordApi)
+    fun provideRandomWordRemoteData(retrofit: Retrofit) : RandomWordRemoteData = RandomWordRemoteData(retrofit)
+
 }

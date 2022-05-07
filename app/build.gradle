@@ -21,6 +21,7 @@ android {
         }
 
         buildConfigField("String", "API_KEY", API_KEY)
+        buildConfigField("String", "BASE_URL", "\"http://api.wordnik.com/v4/\"")
     }
 
     buildTypes {

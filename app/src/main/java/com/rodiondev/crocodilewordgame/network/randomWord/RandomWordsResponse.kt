@@ -1,4 +1,4 @@
-package com.rodiondev.crocodilewordgame.data.request.randomWord
+package com.rodiondev.crocodilewordgame.network.randomWord
 
 import com.google.gson.annotations.SerializedName
 

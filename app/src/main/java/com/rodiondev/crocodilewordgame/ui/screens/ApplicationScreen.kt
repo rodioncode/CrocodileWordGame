@@ -17,7 +17,9 @@ fun ApplicationScreen() {
     val navController = rememberNavController()
     
     NavHost(navController = navController, startDestination = NavigationTree.Splash.name) {
-        composable(NavigationTree.Splash.name) { SplashScreen(navController = navController) }
+        composable(NavigationTree.Splash.name) {
+            SplashScreen(navController = navController)
+        }
         composable(NavigationTree.Login.name) {
             val loginViewModel = hiltViewModel<LoginViewModel>()
             LoginScreen(
