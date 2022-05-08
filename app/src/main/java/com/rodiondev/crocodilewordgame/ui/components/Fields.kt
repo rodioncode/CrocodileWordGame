@@ -11,12 +11,8 @@ import com.rodiondev.crocodilewordgame.R
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.Icons
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -24,52 +20,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.rodiondev.crocodilewordgame.ui.screens.login.models.LoginViewState
-
-
-@Composable
-fun Email(
-    viewState: LoginViewState,
-    onEmailValueChanged: (String) -> Unit,
-    imeAction: ImeAction = ImeAction.Next,
-    onImeAction: () -> Unit = {}
-) {
-    OutlinedTextField(
-        value = viewState.emailValue,
-        onValueChange = onEmailValueChanged,
-        label = {
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                Text(
-                    text = stringResource(id = R.string.email_label),
-                    style = MaterialTheme.typography.body2
-                )
-            }
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            /*.onFocusChanged { focusState ->
-                emailState.onFocusChange(focusState.isFocused)
-                if (!focusState.isFocused) {
-                    emailState.enableShowErrors()
-                }
-            }*/,
-        textStyle = MaterialTheme.typography.body2,
-        isError = viewState.isError,
-        keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
-        keyboardActions = KeyboardActions(
-            onDone = {
-                onImeAction()
-            }
-        ),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor = Color.White,
-            textColor = Color.White,
-            focusedBorderColor = Color.Yellow,
-            focusedLabelColor = Color.White
-        )
-    )
-
-    viewState.errorMessage?.let { error -> TextFieldError(textError = error) }
-}
 
 @Composable
 fun Password(
@@ -85,13 +35,7 @@ fun Password(
         value = viewState.passwordValue,
         onValueChange = onPasswordValueChanged,
         modifier = modifier
-            .fillMaxWidth()
-            /*.onFocusChanged { focusState ->
-                passwordState.onFocusChange(focusState.isFocused)
-                if (!focusState.isFocused) {
-                    passwordState.enableShowErrors()
-                }
-            }*/,
+            .fillMaxWidth(),
         textStyle = MaterialTheme.typography.body2,
         label = {
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
@@ -123,7 +67,7 @@ fun Password(
         } else {
             PasswordVisualTransformation()
         },
-        isError = viewState.isError,
+        isError = viewState.isPasswordError,
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
         keyboardActions = KeyboardActions(
             onDone = {
@@ -138,7 +82,46 @@ fun Password(
         )
     )
 
-    viewState.errorMessage?.let { error -> TextFieldError(textError = error) }
+    if(viewState.isPasswordError) {
+        TextFieldError(textError = "Invalid password")
+    }
+}
+
+@Composable
+fun MyOutlinedTextField(
+    value: String,
+    labelResourceId: Int,
+    onValueChanged: (String) -> Unit,
+    imeAction: ImeAction = ImeAction.Next,
+    onImeAction: () -> Unit = {}
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChanged,
+        label = {
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                Text(
+                    text = stringResource(id = labelResourceId),
+                    style = MaterialTheme.typography.body2
+                )
+            }
+        },
+        modifier = Modifier
+            .fillMaxWidth(),
+        textStyle = MaterialTheme.typography.body2,
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
+        keyboardActions = KeyboardActions(
+            onDone = {
+                onImeAction()
+            }
+        ),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            unfocusedBorderColor = Color.White,
+            textColor = Color.White,
+            focusedBorderColor = Color.Yellow,
+            focusedLabelColor = Color.White
+        )
+    )
 }
 
 /**

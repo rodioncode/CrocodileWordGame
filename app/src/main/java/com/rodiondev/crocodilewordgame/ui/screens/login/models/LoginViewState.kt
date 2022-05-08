@@ -8,8 +8,12 @@ data class LoginViewState(
     val viewSubState: LoginViewSubState = LoginViewSubState.SignIn,
     val emailValue: String = "",
     val passwordValue: String = "",
+
+    // Sign up fields
     val fullNameValue: String = "",
-    val isError: Boolean = false,
-    val errorMessage: String? = null,
+    val passwordRepeatValue: String = "",
+
+    val isEmailError: Boolean = false,
+    val isPasswordError: Boolean = false,
     val isLoginProgress: Boolean = false
 )

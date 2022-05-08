@@ -1,6 +1,6 @@
 package com.rodiondev.crocodilewordgame.network
 
-import com.rodiondev.crocodilewordgame.BASE_URL
+import com.rodiondev.crocodilewordgame.util.BASE_URL
 import com.rodiondev.crocodilewordgame.BuildConfig
 import com.rodiondev.crocodilewordgame.network.randomWord.RandomWordApi
 import com.rodiondev.crocodilewordgame.network.randomWord.RandomWordRemoteData

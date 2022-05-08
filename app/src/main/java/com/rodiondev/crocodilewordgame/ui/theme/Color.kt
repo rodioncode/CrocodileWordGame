@@ -2,11 +2,18 @@ package com.rodiondev.crocodilewordgame.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+data class Colors(
+    val background: Color,
+    val primaryText: Color,
+    val secondaryText: Color,
+    val primaryTint: Color,
+    val secondaryTint: Color
+)
 
-val Green = Color(0xFF287233)
-val Yellow = Color.Yellow
-val White = Color.White
+val lightPalette = Colors(
+    background = Color(0xFF287233),
+    primaryText = Color.Black,
+    secondaryText = Color.White,
+    primaryTint = Color(0xFFADFF2F),
+    secondaryTint = Color(0xFFF28C28)
+)

@@ -1,4 +1,4 @@
-package com.rodiondev.crocodilewordgame
+package com.rodiondev.crocodilewordgame.util
 
 const val BASE_URL = "http://api.wordnik.com/v4/"
 

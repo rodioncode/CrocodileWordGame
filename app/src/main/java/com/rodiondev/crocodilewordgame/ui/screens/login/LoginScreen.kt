@@ -2,13 +2,13 @@ package com.rodiondev.crocodilewordgame.ui.screens.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -24,6 +24,8 @@ import com.rodiondev.crocodilewordgame.ui.components.*
 import com.rodiondev.crocodilewordgame.ui.screens.login.models.LoginEvent
 import com.rodiondev.crocodilewordgame.ui.screens.login.models.LoginViewState
 import com.rodiondev.crocodilewordgame.ui.screens.login.models.LoginViewSubState
+import com.rodiondev.crocodilewordgame.ui.theme.AppTheme
+import com.rodiondev.crocodilewordgame.ui.theme.CrocodileWordGameTheme
 
 @Composable
 fun LoginScreen(
@@ -34,7 +36,7 @@ fun LoginScreen(
     with(viewState.value) {
         LazyColumn(
             Modifier
-                .background(MaterialTheme.colors.background)
+                .background(AppTheme.colors.background)
                 .fillMaxSize()
                 .padding(24.dp)
         ) {
@@ -47,7 +49,7 @@ fun LoginScreen(
                         LoginViewSubState.Forgot -> stringResource(id = R.string.forgot_title)
                     },
                     style = TextStyle(
-                        color = Color.Yellow,
+                        color = AppTheme.colors.primaryTint,
                         fontSize = 42.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -60,10 +62,13 @@ fun LoginScreen(
                         LoginViewSubState.Forgot -> stringResource(id = R.string.forgot_subtitle)
                     },
                     style = TextStyle(
-                        color = Color.Yellow,
+                        color = AppTheme.colors.primaryTint,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold
-                    )
+                    ),
+                    modifier = Modifier.clickable {
+                        loginViewModel.obtainEvent(LoginEvent.TextClicked)
+                    }
                 )
 
             }
@@ -78,40 +83,48 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.padding(top = 150.dp))
             }
             item {
+                MyOutlinedTextField(
+                    value = viewState.value.emailValue,
+                    labelResourceId = R.string.email_label,
+                    onValueChanged = {
+                        loginViewModel.obtainEvent(LoginEvent.EmailChanged(it))
+                    }
+                )
+            }
+            item {
                 when (viewSubState) {
                     LoginViewSubState.SignIn -> SignInFields(
                         this@with,
-                        {
-                            loginViewModel.obtainEvent(LoginEvent.EmailChanged(it))
-                        },
-                        {
+                        onPasswordChanged = {
                             loginViewModel.obtainEvent(LoginEvent.PasswordChanged(it))
                         },
-                        {
+                        onForgotClicked = {
+                            loginViewModel.obtainEvent(LoginEvent.ForgotClicked)
+                        },
+                        onButtonClicked = {
                             navController.navigate(NavigationTree.Menu.name)
-                        })
+                        }
+
+                    )
                     LoginViewSubState.SignUp -> SignUpFields(
                         this@with,
-                        {
-                            loginViewModel.obtainEvent(LoginEvent.EmailChanged(it))
-                        },
-                        {
+                        onPasswordChanged = {
                             loginViewModel.obtainEvent(LoginEvent.PasswordChanged(it))
                         },
-                        {
-                            navController.navigate(NavigationTree.Menu.name)
-                        })
-                    LoginViewSubState.Forgot -> ForgotFields(
-                        this@with,
-                        {
-                            loginViewModel.obtainEvent(LoginEvent.EmailChanged(it))
+                        onFullNameChanged = {
+                            loginViewModel.obtainEvent(LoginEvent.FullNameChanged(it))
                         },
-                        {
-                            loginViewModel.obtainEvent(LoginEvent.PasswordChanged(it))
-                        },
-                        {
+                        onButtonClicked = {
                             navController.navigate(NavigationTree.Menu.name)
-                        })
+                        },
+                        onForgotClicked = {
+                            loginViewModel.obtainEvent(LoginEvent.ForgotClicked)
+                        }
+
+                    )
+                    LoginViewSubState.Forgot -> ForgotFields {
+                        navController.navigate(NavigationTree.Menu.name)
+                    }
                 }
 
             }
@@ -124,57 +137,98 @@ fun LoginScreen(
 @Composable
 fun SignInFields(
     viewState: LoginViewState,
-    onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
-    onButtonClicked: () -> Unit
+    onButtonClicked: () -> Unit,
+    onForgotClicked: () -> Unit
 ) {
-    Email(viewState = viewState, onEmailValueChanged = onEmailChanged)
-    Password(viewState = viewState, onPasswordValueChanged = onPasswordChanged)
+
+    Password(
+        viewState = viewState,
+        onPasswordValueChanged = onPasswordChanged
+    )
 
     Spacer(modifier = Modifier.padding(top = 12.dp))
+    Row {
+        Button(
+            onClick = onButtonClicked,
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = AppTheme.colors.secondaryTint
+            )
 
-    Button(
-        onClick = onButtonClicked
-    ) {
-        Text(text = stringResource(id = R.string.sign_in_button))
+        ) {
+            Text(
+                text = stringResource(id = R.string.sign_in_button),
+                style = TextStyle(
+                    color = AppTheme.colors.secondaryText
+                )
+            )
+        }
+        Spacer(modifier = Modifier.padding(start = 12.dp))
+        Text(
+            text = stringResource(id = R.string.forgot_button),
+            style = TextStyle(
+                color = AppTheme.colors.secondaryTint,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Normal
+            ),
+            modifier = Modifier
+                .clickable(enabled = true, onClick = onForgotClicked)
+                .align(Alignment.CenterVertically)
+        )
     }
+
 }
 
 
 @Composable
 fun SignUpFields(
     viewState: LoginViewState,
-    onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
-    onButtonClicked: () -> Unit
-) {
-    Email(viewState = viewState, onEmailValueChanged = onEmailChanged)
-    Password(viewState = viewState, onPasswordValueChanged = onPasswordChanged)
+    onFullNameChanged: (String) -> Unit,
+    onButtonClicked: () -> Unit,
+    onForgotClicked: () -> Unit
 
+) {
+    Password(viewState = viewState, onPasswordValueChanged = onPasswordChanged)
+    MyOutlinedTextField(
+        value = viewState.fullNameValue,
+        labelResourceId = R.string.full_name,
+        onValueChanged = onFullNameChanged
+    )
     Spacer(modifier = Modifier.padding(top = 12.dp))
 
-    Button(
-        onClick = onButtonClicked
-    ) {
-        Text(text = stringResource(id = R.string.sign_in_button))
+    Row {
+        Button(
+            onClick = onButtonClicked,
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = AppTheme.colors.primaryTint
+            )
+
+        ) {
+            Text(text = stringResource(id = R.string.sign_up_button))
+        }
+        Text(
+            text = stringResource(id = R.string.forgot_button),
+            style = TextStyle(
+                color = AppTheme.colors.secondaryTint,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Normal
+            ),
+            modifier = Modifier
+                .clickable(enabled = true, onClick = onForgotClicked)
+                .align(Alignment.CenterVertically)
+        )
     }
 }
 
 @Composable
 fun ForgotFields(
-    viewState: LoginViewState,
-    onEmailChanged: (String) -> Unit,
-    onPasswordChanged: (String) -> Unit,
     onButtonClicked: () -> Unit
 ) {
-    Email(viewState = viewState, onEmailValueChanged = onEmailChanged)
-    Password(viewState = viewState, onPasswordValueChanged = onPasswordChanged)
-
     Spacer(modifier = Modifier.padding(top = 12.dp))
-
     Button(
         onClick = onButtonClicked
     ) {
-        Text(text = stringResource(id = R.string.sign_in_button))
+        Text(text = stringResource(id = R.string.forgot_button))
     }
 }

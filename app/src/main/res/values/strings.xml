@@ -11,4 +11,7 @@
     <string name="show_password">show password</string>
     <string name="password_label">Password</string>
     <string name="sign_in_button">Sign In</string>
+    <string name="full_name">Full name</string>
+    <string name="forgot_button">Restore password</string>
+    <string name="sign_up_button">Sign Up</string>
 </resources>
