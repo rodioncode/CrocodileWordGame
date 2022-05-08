@@ -13,7 +13,7 @@ constructor(
 ) {
 
     suspend fun fetchRandomWord(): Result<RandomWord> {
-        val randomWordApi = retrofit.create(RandomWordApi::class.java);
+        val randomWordApi = retrofit.create(RandomWordApi::class.java)
         return getResponse(
             request = { randomWordApi.getRandomWord() },
             defaultErrorMessage = "Error fetching Random word")

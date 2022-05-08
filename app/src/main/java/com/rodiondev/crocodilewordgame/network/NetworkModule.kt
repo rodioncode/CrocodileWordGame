@@ -1,5 +1,6 @@
 package com.rodiondev.crocodilewordgame.network
 
+import com.rodiondev.crocodilewordgame.BASE_URL
 import com.rodiondev.crocodilewordgame.BuildConfig
 import com.rodiondev.crocodilewordgame.network.randomWord.RandomWordApi
 import com.rodiondev.crocodilewordgame.network.randomWord.RandomWordRemoteData
@@ -17,13 +18,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val baseUrl = BuildConfig.BASE_URL
+    private const val baseUrl = BASE_URL
 
     @Provides
     fun provideHTTPLoggingInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor()
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-        return interceptor;
+        return interceptor
     }
 
     @Provides

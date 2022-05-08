@@ -23,19 +23,19 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.rodiondev.crocodilewordgame.ui.screens.login.models.LoginViewState
 
 
 @Composable
 fun Email(
-    emailState: TextFieldState = remember { EmailState() },
+    viewState: LoginViewState,
+    onEmailValueChanged: (String) -> Unit,
     imeAction: ImeAction = ImeAction.Next,
     onImeAction: () -> Unit = {}
 ) {
     OutlinedTextField(
-        value = emailState.text,
-        onValueChange = {
-            emailState.text = it
-        },
+        value = viewState.emailValue,
+        onValueChange = onEmailValueChanged,
         label = {
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                 Text(
@@ -46,14 +46,14 @@ fun Email(
         },
         modifier = Modifier
             .fillMaxWidth()
-            .onFocusChanged { focusState ->
+            /*.onFocusChanged { focusState ->
                 emailState.onFocusChange(focusState.isFocused)
                 if (!focusState.isFocused) {
                     emailState.enableShowErrors()
                 }
-            },
+            }*/,
         textStyle = MaterialTheme.typography.body2,
-        isError = emailState.showErrors(),
+        isError = viewState.isError,
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
         keyboardActions = KeyboardActions(
             onDone = {
@@ -68,12 +68,13 @@ fun Email(
         )
     )
 
-    emailState.getError()?.let { error -> TextFieldError(textError = error) }
+    viewState.errorMessage?.let { error -> TextFieldError(textError = error) }
 }
 
 @Composable
 fun Password(
-    passwordState: TextFieldState,
+    viewState: LoginViewState,
+    onPasswordValueChanged: (String) -> Unit,
     modifier: Modifier = Modifier,
     label: String = stringResource(id = R.string.password_label),
     imeAction: ImeAction = ImeAction.Done,
@@ -81,19 +82,16 @@ fun Password(
 ) {
     val showPassword = remember { mutableStateOf(false) }
     OutlinedTextField(
-        value = passwordState.text,
-        onValueChange = {
-            passwordState.text = it
-            passwordState.enableShowErrors()
-        },
+        value = viewState.passwordValue,
+        onValueChange = onPasswordValueChanged,
         modifier = modifier
             .fillMaxWidth()
-            .onFocusChanged { focusState ->
+            /*.onFocusChanged { focusState ->
                 passwordState.onFocusChange(focusState.isFocused)
                 if (!focusState.isFocused) {
                     passwordState.enableShowErrors()
                 }
-            },
+            }*/,
         textStyle = MaterialTheme.typography.body2,
         label = {
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
@@ -125,7 +123,7 @@ fun Password(
         } else {
             PasswordVisualTransformation()
         },
-        isError = passwordState.showErrors(),
+        isError = viewState.isError,
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
         keyboardActions = KeyboardActions(
             onDone = {
@@ -140,7 +138,7 @@ fun Password(
         )
     )
 
-    passwordState.getError()?.let { error -> TextFieldError(textError = error) }
+    viewState.errorMessage?.let { error -> TextFieldError(textError = error) }
 }
 
 /**
