@@ -19,11 +19,59 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.rodiondev.crocodilewordgame.ui.screens.login.models.LoginViewState
 
+/**
+ * fun for default OutlinedTextField
+ * @param value - veiwState field value
+ * @param labelResourceId - string resource for label
+ * @param - onValueChanged - viewModel event listener
+ **/
+@Composable
+fun BaseOutlinedTextField(
+    value: String,
+    labelResourceId: Int,
+    onValueChanged: (String) -> Unit,
+    imeAction: ImeAction = ImeAction.Next,
+    onImeAction: () -> Unit = {}
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChanged,
+        label = {
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                Text(
+                    text = stringResource(id = labelResourceId),
+                    style = MaterialTheme.typography.body2
+                )
+            }
+        },
+        modifier = Modifier
+            .fillMaxWidth(),
+        textStyle = MaterialTheme.typography.body2,
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
+        keyboardActions = KeyboardActions(
+            onDone = {
+                onImeAction()
+            }
+        ),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            unfocusedBorderColor = Color.White,
+            textColor = Color.White,
+            focusedBorderColor = Color.Yellow,
+            focusedLabelColor = Color.White
+        )
+    )
+}
+/**
+ * fun for default OutlinedTextField
+ * @param value - veiwState field value
+ * @param labelResourceId - string resource for label
+ * @param - onValueChanged - viewModel event listener
+ **/
 @Composable
 fun Password(
-    viewState: LoginViewState,
+    value: String,
+    isError: Boolean,
     onPasswordValueChanged: (String) -> Unit,
     modifier: Modifier = Modifier,
     label: String = stringResource(id = R.string.password_label),
@@ -32,7 +80,7 @@ fun Password(
 ) {
     val showPassword = remember { mutableStateOf(false) }
     OutlinedTextField(
-        value = viewState.passwordValue,
+        value = value,
         onValueChange = onPasswordValueChanged,
         modifier = modifier
             .fillMaxWidth(),
@@ -67,7 +115,7 @@ fun Password(
         } else {
             PasswordVisualTransformation()
         },
-        isError = viewState.isPasswordError,
+        isError = isError,
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
         keyboardActions = KeyboardActions(
             onDone = {
@@ -82,46 +130,9 @@ fun Password(
         )
     )
 
-    if(viewState.isPasswordError) {
+    if(isError) {
         TextFieldError(textError = "Invalid password")
     }
-}
-
-@Composable
-fun MyOutlinedTextField(
-    value: String,
-    labelResourceId: Int,
-    onValueChanged: (String) -> Unit,
-    imeAction: ImeAction = ImeAction.Next,
-    onImeAction: () -> Unit = {}
-) {
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChanged,
-        label = {
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                Text(
-                    text = stringResource(id = labelResourceId),
-                    style = MaterialTheme.typography.body2
-                )
-            }
-        },
-        modifier = Modifier
-            .fillMaxWidth(),
-        textStyle = MaterialTheme.typography.body2,
-        keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
-        keyboardActions = KeyboardActions(
-            onDone = {
-                onImeAction()
-            }
-        ),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor = Color.White,
-            textColor = Color.White,
-            focusedBorderColor = Color.Yellow,
-            focusedLabelColor = Color.White
-        )
-    )
 }
 
 /**

@@ -33,7 +33,7 @@ constructor(
     private fun fetchUsers(){
         viewModelScope.launch {
             randomWordRepository.getRandomWord().collect{
-                _viewState.value = _viewState.value.copy(word = it?.data?.randomWord)
+                _viewState.value = _viewState.value.copy(fetchResult = it)
             }
         }
     }
