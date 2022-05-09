@@ -1,7 +1,7 @@
 package com.rodiondev.crocodilewordgame.ui.screens.menu.models
 
-import com.rodiondev.crocodilewordgame.common.Result
-import com.rodiondev.crocodilewordgame.network.randomWord.RandomWord
+import com.rodiondev.crocodilewordgame.util.Result
+import com.rodiondev.crocodilewordgame.data.api.randomWord.RandomWord
 
 
 data class MenuViewState(

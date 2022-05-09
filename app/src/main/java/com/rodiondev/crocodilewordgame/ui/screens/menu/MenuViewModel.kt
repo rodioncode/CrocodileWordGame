@@ -2,8 +2,8 @@ package com.rodiondev.crocodilewordgame.ui.screens.menu
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rodiondev.crocodilewordgame.common.EventHandler
-import com.rodiondev.crocodilewordgame.repository.RandomWordRepository
+import com.rodiondev.crocodilewordgame.util.EventHandler
+import com.rodiondev.crocodilewordgame.data.repositories.RandomWordRepository
 import com.rodiondev.crocodilewordgame.ui.screens.menu.models.MenuEvent
 import com.rodiondev.crocodilewordgame.ui.screens.menu.models.MenuViewState
 import dagger.hilt.android.lifecycle.HiltViewModel

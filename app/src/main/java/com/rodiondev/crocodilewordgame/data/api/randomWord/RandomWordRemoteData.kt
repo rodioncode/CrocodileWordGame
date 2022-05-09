@@ -1,9 +1,9 @@
-package com.rodiondev.crocodilewordgame.network.randomWord
+package com.rodiondev.crocodilewordgame.data.api.randomWord
 
 import retrofit2.Response
 import retrofit2.Retrofit
 import javax.inject.Inject
-import com.rodiondev.crocodilewordgame.common.Result
+import com.rodiondev.crocodilewordgame.util.Result
 import com.rodiondev.crocodilewordgame.util.ErrorUtils
 
 class RandomWordRemoteData

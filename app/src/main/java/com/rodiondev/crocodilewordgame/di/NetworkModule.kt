@@ -1,9 +1,10 @@
-package com.rodiondev.crocodilewordgame.network
+package com.rodiondev.crocodilewordgame.di
 
 import com.rodiondev.crocodilewordgame.util.BASE_URL
 import com.rodiondev.crocodilewordgame.BuildConfig
-import com.rodiondev.crocodilewordgame.network.randomWord.RandomWordApi
-import com.rodiondev.crocodilewordgame.network.randomWord.RandomWordRemoteData
+import com.rodiondev.crocodilewordgame.data.api.randomWord.RandomWordApi
+import com.rodiondev.crocodilewordgame.data.api.randomWord.RandomWordRemoteData
+import com.rodiondev.crocodilewordgame.util.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

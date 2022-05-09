@@ -1,8 +1,8 @@
 package com.rodiondev.crocodilewordgame.ui.screens.menu
 
-import android.graphics.Color
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,8 +13,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.rodiondev.crocodilewordgame.common.Result
-import com.rodiondev.crocodilewordgame.network.randomWord.RandomWord
+import com.rodiondev.crocodilewordgame.util.Result
 import com.rodiondev.crocodilewordgame.ui.screens.menu.models.MenuEvent
 import com.rodiondev.crocodilewordgame.ui.screens.menu.models.MenuViewState
 import com.rodiondev.crocodilewordgame.ui.theme.AppTheme
@@ -51,9 +50,15 @@ fun MenuScreen(
             Button(
                 onClick = {
                     menuViewModel.obtainEvent(MenuEvent.GenerateNewWord)
-                }
+                },
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = AppTheme.colors.secondaryTint
+                )
             ){
-                Text(text = "Generate new word")
+                Text(
+                    text = "Generate new word",
+                    color = AppTheme.colors.secondaryText
+                )
             }
         }
 

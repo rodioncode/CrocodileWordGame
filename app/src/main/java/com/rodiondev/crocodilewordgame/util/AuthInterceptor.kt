@@ -1,4 +1,4 @@
-package com.rodiondev.crocodilewordgame.network
+package com.rodiondev.crocodilewordgame.util
 
 import okhttp3.Interceptor
 import okhttp3.Request

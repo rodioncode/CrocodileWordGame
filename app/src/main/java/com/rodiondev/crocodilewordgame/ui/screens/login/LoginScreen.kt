@@ -1,8 +1,6 @@
 package com.rodiondev.crocodilewordgame.ui.screens.login
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -27,6 +25,9 @@ import com.rodiondev.crocodilewordgame.ui.screens.login.models.LoginViewState
 import com.rodiondev.crocodilewordgame.ui.screens.login.models.LoginViewSubState
 import com.rodiondev.crocodilewordgame.ui.theme.AppTheme
 
+/**
+ * TODO: add scroll on keyboard open
+ */
 @Composable
 fun LoginScreen(
     navController: NavController,
@@ -35,7 +36,7 @@ fun LoginScreen(
     val viewState = loginViewModel.viewState.collectAsState(LoginViewState())
     with(viewState.value) {
         LazyColumn(
-            Modifier
+            modifier = Modifier
                 .background(AppTheme.colors.background)
                 .fillMaxSize()
                 .padding(24.dp)
@@ -103,6 +104,7 @@ fun LoginScreen(
                             loginViewModel.obtainEvent(LoginEvent.ForgotClicked)
                         },
                         onButtonClicked = {
+                            loginViewModel.obtainEvent(LoginEvent.onBottomButtonClicked)
                             navController.navigate(NavigationTree.Menu.name)
                         }
 
@@ -124,6 +126,7 @@ fun LoginScreen(
 
                     )
                     LoginViewSubState.Forgot -> ForgotFields {
+                        loginViewModel.obtainEvent(LoginEvent.onBottomButtonClicked)
                         navController.navigate(NavigationTree.Menu.name)
                     }
                 }

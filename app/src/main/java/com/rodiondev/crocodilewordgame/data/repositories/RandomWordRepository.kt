@@ -1,12 +1,12 @@
-package com.rodiondev.crocodilewordgame.repository
+package com.rodiondev.crocodilewordgame.data.repositories
 
-import com.rodiondev.crocodilewordgame.network.randomWord.RandomWord
-import com.rodiondev.crocodilewordgame.network.randomWord.RandomWordRemoteData
+import com.rodiondev.crocodilewordgame.data.api.randomWord.RandomWord
+import com.rodiondev.crocodilewordgame.data.api.randomWord.RandomWordRemoteData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Singleton
-import com.rodiondev.crocodilewordgame.common.Result
+import com.rodiondev.crocodilewordgame.util.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 

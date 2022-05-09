@@ -1,4 +1,4 @@
-package com.rodiondev.crocodilewordgame.common
+package com.rodiondev.crocodilewordgame.util
 
 /**
  * Generic class for holding success response, error response and loading status

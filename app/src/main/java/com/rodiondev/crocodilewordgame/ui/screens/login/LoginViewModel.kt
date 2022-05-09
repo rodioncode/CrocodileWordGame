@@ -1,7 +1,10 @@
 package com.rodiondev.crocodilewordgame.ui.screens.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.rodiondev.crocodilewordgame.common.EventHandler
+import com.google.firebase.auth.FirebaseAuth
+import com.rodiondev.crocodilewordgame.data.repositories.FirebaseRepository
+import com.rodiondev.crocodilewordgame.util.EventHandler
 import com.rodiondev.crocodilewordgame.ui.screens.login.models.LoginEvent
 import com.rodiondev.crocodilewordgame.ui.screens.login.models.LoginViewState
 import com.rodiondev.crocodilewordgame.ui.screens.login.models.LoginViewSubState
@@ -15,7 +18,9 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel
 @Inject
-constructor(): ViewModel(), EventHandler<LoginEvent> {
+constructor(
+    private val firebaseRepository: FirebaseRepository
+): ViewModel(), EventHandler<LoginEvent> {
 
     private val _viewState = MutableStateFlow(LoginViewState())
 
@@ -29,6 +34,37 @@ constructor(): ViewModel(), EventHandler<LoginEvent> {
             is LoginEvent.PasswordChanged -> passwordChanged(value = event.value)
             is LoginEvent.FullNameChanged -> fullNameChanged(value = event.value)
             is LoginEvent.PasswordRepeatChanged -> passwordRepeatChanged(value = event.value)
+            LoginEvent.onBottomButtonClicked -> onBottomButtonClicked()
+        }
+    }
+
+    private fun onBottomButtonClicked() {
+        when(_viewState.value.viewSubState){
+            LoginViewSubState.SignIn -> onSignInClicked()
+            LoginViewSubState.SignUp -> onSignUpClicked()
+            LoginViewSubState.Forgot -> onForgotClicked()
+        }
+    }
+
+    private fun onForgotClicked() {
+        with(_viewState.value){
+            firebaseRepository.sendForgotPassword(emailValue)
+        }
+    }
+
+    private fun onSignUpClicked() {
+        with(_viewState.value){
+            firebaseRepository.signUpUser(
+                email = emailValue,
+                password = passwordValue,
+                fullName = fullNameValue
+            )
+        }
+    }
+
+    private fun onSignInClicked() {
+        with(_viewState.value){
+            firebaseRepository.signInUser(email = emailValue, password = passwordValue)
         }
     }
 
