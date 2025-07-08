@@ -256,6 +256,12 @@
       "target": 34962
     }
   ],
+  "buffers": [
+    {
+      "byteLength": 944960,
+      "uri": "/scene.bin"
+    }
+  ],
   "materials": [
     {
       "doubleSided": true,
