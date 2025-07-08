@@ -259,7 +259,7 @@
   "buffers": [
     {
       "byteLength": 944960,
-      "uri": "scene.bin"
+      "uri": "https://raw.githubusercontent.com/rodioncode/CrocodileWordGame/main/scene.bin"
     }
   ],
   "materials": [
