@@ -1,0 +1,11 @@
+Model Information:
+* title:	Ам Ням | Om Nom toy
+* source:	https://sketchfab.com/3d-models/om-nom-toy-6e40f7e29be345b094cc6f31fd07de63
+* author:	3D SHVYREV (https://sketchfab.com/MAKLIK)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Ам Ням | Om Nom toy" (https://sketchfab.com/3d-models/om-nom-toy-6e40f7e29be345b094cc6f31fd07de63) by 3D SHVYREV (https://sketchfab.com/MAKLIK) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
