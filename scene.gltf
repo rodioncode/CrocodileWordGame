@@ -256,12 +256,6 @@
       "target": 34962
     }
   ],
-  "buffers": [
-    {
-      "byteLength": 944960,
-      "uri": "https://raw.githubusercontent.com/rodioncode/CrocodileWordGame/main/scene.bin"
-    }
-  ],
   "materials": [
     {
       "doubleSided": true,
